@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+
+option java_multiple_files = true;
+option java_package = "com.studentDemo.pickCourse";
+option java_outer_classname = "pickCourseProto";
+
+message StuMessage {
+    int32 id = 1;
+    string name = 2;
+    string major = 3;
+    repeated string courses = 4;
+    int32 score1 = 5;
+    int32 score = 6;
+}
+
+message CouMessage {
+    int32 cId = 1;
+    string cName = 2;
+    string time = 3;
+    string place = 4;
+    int32 score = 5;
+    string teacher = 6;
+    int32 members = 7;
+    int32 total = 8;
+    string type =9;
+    int32 zhou =10;
+    int32 jie =11;
+}
+
+message GraMessage {
+    int32 psf = 1;
+    double psfzb =2;
+    int32 qz = 3;
+    double qzzb =4;
+    int32 qm = 5;
+    double qmzb =6;
+    double zong =7;
+}
+
+message AddCourseRequest {
+    CouMessage course = 1;
+}
+message AddCourseResponse {
+    CouMessage course = 1;
+    string message = 2;
+}
+
+message DeleteCourseRequest {
+    int32 courseId = 1;
+}
+message DeleteCourseResponse {
+    string message = 1;
+}
+
+message ReadCourseResponse {
+    repeated CouMessage courses = 1;
+    string message = 2;
+}
+message ReadCourseRequest {
+}
+
+service CourseService {
+    rpc AddCourse(AddCourseRequest) returns (AddCourseResponse);
+    rpc DeleteCourse(DeleteCourseRequest) returns (DeleteCourseResponse);
+    rpc ReadCourse(ReadCourseRequest) returns (ReadCourseResponse);
+}
+
+
+message AddStudentRequest {
+    StuMessage student = 1;
+}
+message AddStudentResponse {
+    StuMessage student = 1;
+    string message = 2;
+}
+
+message DeleteStudentRequest {
+    int32 studentId = 1;
+}
+message DeleteStudentResponse {
+    string message = 1;
+}
+
+message ReadStudentResponse {
+    repeated CouMessage courses = 1;
+    string message = 2;
+}
+message ReadStudentRequest {
+}
+
+message SelectCourseRequest {
+    int32 studentId = 1;
+    int32 courseId = 2;
+}
+message SelectCourseResponse {
+    string message = 1;
+}
+
+message ReadTableResponse {
+    repeated CouMessage zhou = 1;
+    repeated CouMessage jie = 2;
+    string message = 3;
+}
+message ReadTableRequest {
+    int32 studentId = 1;
+}
+
+service StudentService {
+    rpc AddStudent(AddStudentRequest) returns (AddStudentResponse);
+    rpc DeleteStudent(DeleteStudentRequest) returns (DeleteStudentResponse);
+    rpc ReadStudent(ReadStudentRequest) returns (ReadStudentResponse);
+    rpc SelectCourse(SelectCourseRequest) returns (SelectCourseResponse);
+    rpc ReadTable(ReadTableRequest) returns (ReadTableResponse);
+}
+
+message AddGradeRequest {
+    StuMessage student = 1;
+    CouMessage course = 2;
+    GraMessage grade = 3;
+}
+
+message AddGradeResponse {
+    string message = 1;
+}
+
+service GradeService {
+    rpc AddGrade(AddGradeRequest) returns (AddGradeResponse);
+}
